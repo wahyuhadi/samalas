@@ -6,14 +6,20 @@ import (
 )
 
 var (
-	product = flag.String("p", "all", "Scan for product only . Example : --prodcuts elastic")
+	product = flag.String("p", "all", "Scan for product only . Example : -p elastic")
 )
 
 type Target struct {
-	Ip      string
+	// - ip a.k.a target
+	Ip string
+	// - timeout
 	Timeout time.Duration
-	Http    bool
+	// - Is Http scan -> true
+	Http bool
+	// - Is Elastic scan ->
 	Elastic bool
+	// - Is Redis scan
+	Redis bool
 }
 
 func Init(ip string) {
@@ -22,6 +28,7 @@ func Init(ip string) {
 	if *product == "all" {
 		t.Http = true
 		t.Elastic = true
+		t.Redis = true
 	}
 
 	// - spesific scan for products
@@ -33,8 +40,15 @@ func Init(ip string) {
 	if *product == "http" {
 		t.Http = true
 	}
+
+	// - scan for redis services
+	if *product == "redis" {
+		t.Redis = true
+	}
+
 	t.Ip = ip
 	t.Timeout = 500 * time.Millisecond
 	t.isHttp()
 	t.isElastic()
+	t.isRedis()
 }

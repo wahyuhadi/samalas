@@ -19,7 +19,7 @@ func (t *Target) simple_brute_dir() error {
 			return nil
 		}
 		if resp.StatusCode == 200 {
-			fmt.Println("[+] please check ", target)
+			fmt.Println("[+] please check manual ", target)
 		}
 
 	}
