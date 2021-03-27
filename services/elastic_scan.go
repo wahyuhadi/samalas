@@ -8,13 +8,15 @@ import (
 )
 
 func (t *Target) isElastic() {
-	is_elasic := t.ScanPort(9200, t.Timeout)
+	if t.Elastic {
 
-	// - if elastic open
-	if is_elasic {
-		ip := "http://" + t.Ip + ":9200"
-		if is_elastic(ip) {
-			fmt.Println("[+] port 9200 found : ", t.Ip)
+		is_elasic := t.ScanPort(9200, t.Timeout)
+		// - if elastic open
+		if is_elasic {
+			ip := "http://" + t.Ip + ":9200"
+			if is_elastic(ip) {
+				fmt.Println("[+] port 9200 found : ", t.Ip)
+			}
 		}
 	}
 }

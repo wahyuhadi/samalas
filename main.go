@@ -14,6 +14,7 @@ var (
 
 func main() {
 	flag.Parse()
+
 	if *subnet_ip != "" {
 		ip := ipgen.IpAddressGen(*subnet_ip)
 

@@ -28,9 +28,10 @@ func (t *Target) simple_brute_dir() error {
 }
 
 func (t *Target) isHttp() {
-	// fmt.Println(t.Ip)
-	is_http := t.ScanPort(80, t.Timeout)
-	if is_http {
-		t.simple_brute_dir()
+	if t.Http {
+		is_http := t.ScanPort(80, t.Timeout)
+		if is_http {
+			t.simple_brute_dir()
+		}
 	}
 }
