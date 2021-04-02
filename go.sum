@@ -12,5 +12,7 @@ github.com/olivere/elastic v6.2.35+incompatible h1:MMklYDy2ySi01s123CB2WLBuDMzFX
 github.com/olivere/elastic v6.2.35+incompatible/go.mod h1:J+q1zQJTgAz9woqsbVRqGeB5G1iqDKVBWLNSYW8yfJ8=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/tj/go-spin v1.1.0 h1:lhdWZsvImxvZ3q1C5OIB7d72DuOwP4O2NdBg9PyzNds=
+github.com/tj/go-spin v1.1.0/go.mod h1:Mg1mzmePZm4dva8Qz60H2lHwmJ2loum4VIrLgVnKwh4=
 github.com/wahyuhadi/go-ipgen v0.0.0-20191106165938-41f5a16e668a h1:kTPbRihrla8gubJfH4Mv60Sy8ip7mzJ9SEmos69GNSI=
 github.com/wahyuhadi/go-ipgen v0.0.0-20191106165938-41f5a16e668a/go.mod h1:JZZK2vkMvYVVQFit4ZfY0ii58Fb1XFXME78mRljRrUA=

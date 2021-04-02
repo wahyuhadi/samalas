@@ -2,12 +2,14 @@ package services
 
 import (
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/olivere/elastic"
 )
 
-func (t *Target) isElastic() {
+func (t *Target) isElastic(wg *sync.WaitGroup) {
+	defer wg.Done()
 	if t.Elastic {
 
 		is_elasic := t.ScanPort(9200, t.Timeout)

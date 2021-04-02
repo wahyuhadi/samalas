@@ -3,10 +3,14 @@ package services
 import (
 	"fmt"
 	"net/http"
+	"sync"
 )
 
 func (t *Target) simple_brute_dir() error {
-	list := []string{".env", ".git/config", ".aws/config"}
+	list := []string{
+		".env",
+		".git/config",
+	}
 
 	for _, items := range list {
 		target := "http://" + t.Ip + "/" + items
@@ -27,7 +31,8 @@ func (t *Target) simple_brute_dir() error {
 	return nil
 }
 
-func (t *Target) isHttp() {
+func (t *Target) isHttp(wg *sync.WaitGroup) {
+	defer wg.Done()
 	if t.Http {
 		is_http := t.ScanPort(80, t.Timeout)
 		if is_http {

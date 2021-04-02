@@ -2,11 +2,13 @@ package services
 
 import (
 	"fmt"
+	"sync"
 
 	"github.com/go-redis/redis"
 )
 
-func (t *Target) isRedis() {
+func (t *Target) isRedis(wg *sync.WaitGroup) {
+	defer wg.Done()
 	if t.Redis {
 		is_redis := t.ScanPort(6379, t.Timeout)
 		if is_redis {

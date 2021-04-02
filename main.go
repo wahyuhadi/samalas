@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"samalas/services"
 
 	ipgen "github.com/wahyuhadi/go-ipgen"
@@ -17,11 +18,12 @@ func main() {
 
 	if *subnet_ip != "" {
 		ip := ipgen.IpAddressGen(*subnet_ip)
-
+		fmt.Println("[+] Run scanning ..")
 		for i := 0; i < len(ip); i++ {
 			ips := ip[i]
 			services.Init(ips)
 		}
+
 	}
 
 	if *ip != "" {

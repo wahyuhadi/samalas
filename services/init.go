@@ -2,6 +2,8 @@ package services
 
 import (
 	"flag"
+	"runtime"
+	"sync"
 	"time"
 )
 
@@ -48,7 +50,16 @@ func Init(ip string) {
 
 	t.Ip = ip
 	t.Timeout = 500 * time.Millisecond
-	t.isHttp()
-	t.isElastic()
-	t.isRedis()
+
+	// - for go rutine
+
+	runtime.GOMAXPROCS(2)
+
+	var wg sync.WaitGroup
+	wg.Add(3)
+	t.isHttp(&wg)
+	t.isElastic(&wg)
+	t.isRedis(&wg)
+	wg.Wait()
+
 }
