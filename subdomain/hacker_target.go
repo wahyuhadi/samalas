@@ -3,9 +3,11 @@
 package subdomain
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -39,6 +41,11 @@ func parseHackerTarget(domainName string) []Domain {
 	}
 
 	rawSubdomains := strings.Split(doc.Find("#formResponse").First().Text(), "\n")
+	if rawSubdomains[0] == "API count exceeded - Increase Quota with Membership" {
+		fmt.Println("[!]", rawSubdomains[0])
+		fmt.Println("[!] Please check the web")
+		os.Exit(1)
+	}
 
 	for _, subDomain := range rawSubdomains {
 		rawDomain := strings.Split(subDomain, ",")
