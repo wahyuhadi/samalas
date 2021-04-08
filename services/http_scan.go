@@ -19,7 +19,6 @@ func (t *Target) simple_brute_dir() error {
 		client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 			return errors.New("Redirect")
 		}
-
 		target := "http://" + t.Ip + "/" + items
 		req, _ := http.NewRequest("GET", target, nil)
 		resp, err := client.Do(req)

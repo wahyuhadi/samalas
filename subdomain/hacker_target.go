@@ -42,7 +42,7 @@ func parseHackerTarget(domainName string) []Domain {
 	for _, subDomain := range rawSubdomains {
 		rawDomain := strings.Split(subDomain, ",")
 
-		domains = append(domains, Domain{rawDomain[0], rawDomain[1]})
+		domains = append(domains, Domain{rawDomain[1], rawDomain[0]})
 	}
 
 	return domains

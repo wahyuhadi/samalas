@@ -35,6 +35,7 @@ func main() {
 		sDomain := subdomain.HandlerSubdomain(*domain)
 		for _, subd := range sDomain {
 			services.Init(subd.Subdomain)
+			services.Init(subd.IP)
 		}
 	}
 
