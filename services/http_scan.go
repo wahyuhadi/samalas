@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 	"sync"
@@ -13,19 +14,21 @@ func (t *Target) simple_brute_dir() error {
 	}
 
 	for _, items := range list {
+		client := &http.Client{}
+		// -- dont follow the redirect page
+		client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
+			return errors.New("Redirect")
+		}
+
 		target := "http://" + t.Ip + "/" + items
-		resp, err := http.Get(target)
-		if err != nil {
-			return err
-		}
+		req, _ := http.NewRequest("GET", target, nil)
+		resp, err := client.Do(req)
 
-		if resp.StatusCode == 302 {
-			return nil
+		if err == nil {
+			if resp.StatusCode == http.StatusOK {
+				fmt.Println("[+] Posible Found : ", target)
+			}
 		}
-		if resp.StatusCode == 200 {
-			fmt.Println("[+] please check manual ", target)
-		}
-
 	}
 
 	return nil

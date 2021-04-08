@@ -3,6 +3,7 @@ module samalas
 go 1.16
 
 require (
+	github.com/PuerkitoBio/goquery v1.6.1 // indirect
 	github.com/elastic/go-elasticsearch v0.0.0 // indirect
 	github.com/elastic/go-elasticsearch/v8 v8.0.0-20210317102009-a9d74cec0186 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible // indirect
