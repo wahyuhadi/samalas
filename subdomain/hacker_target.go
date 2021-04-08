@@ -20,6 +20,7 @@ type Domain struct {
 	DomainName string
 }
 
+// - parsing data  from hacker target
 func parseHackerTarget(domainName string) []Domain {
 	domains := []Domain{}
 

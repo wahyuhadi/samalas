@@ -15,15 +15,15 @@ func (t *Target) isElastic(wg *sync.WaitGroup) {
 		is_elasic := t.ScanPort(9200, t.Timeout)
 		// - if elastic open
 		if is_elasic {
-			ip := "http://" + t.Ip + ":9200"
-			if is_elastic(ip) {
+			ip := fmt.Sprintf("http://%s:9200", t.Ip) // - elastic link
+			if check_elastic(ip) {
 				fmt.Println("[+] port 9200 found : ", t.Ip)
 			}
 		}
 	}
 }
 
-func is_elastic(setURL string) bool {
+func check_elastic(setURL string) bool {
 	var sec time.Duration = 5
 
 	// Convert port integer to a string

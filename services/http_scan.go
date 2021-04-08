@@ -11,15 +11,21 @@ func (t *Target) simple_brute_dir() error {
 	list := []string{
 		".env",
 		".git/config",
+		"actuator/env",
+		"actuator/logfile",
 	}
 
 	for _, items := range list {
-		client := &http.Client{}
+		client := &http.Client{
+			Timeout: t.Timeout, // - hope is enough
+		}
+
 		// -- dont follow the redirect page
 		client.CheckRedirect = func(req *http.Request, via []*http.Request) error {
 			return errors.New("Redirect")
 		}
-		target := "http://" + t.Ip + "/" + items
+
+		target := fmt.Sprintf("http://%s/%s", t.Ip, items)
 		req, _ := http.NewRequest("GET", target, nil)
 		resp, err := client.Do(req)
 

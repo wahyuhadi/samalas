@@ -10,13 +10,16 @@ import (
 func (t *Target) isRedis(wg *sync.WaitGroup) {
 	defer wg.Done()
 	if t.Redis {
+		// - check redis port is open or not
 		is_redis := t.ScanPort(6379, t.Timeout)
+
+		// - if redis is open
 		if is_redis {
 			client := t.is_redis_check()
 			pong, err := client.Ping().Result()
 			if err == nil {
 				if pong == "PONG" {
-					fmt.Println("[+] redis ", t.Ip, pong, err)
+					fmt.Println("[+] redis open", t.Ip, pong, "message", err)
 				}
 				// Output: PONG <nil>
 			}
@@ -25,7 +28,7 @@ func (t *Target) isRedis(wg *sync.WaitGroup) {
 }
 
 func (t *Target) is_redis_check() *redis.Client {
-	ip := t.Ip + ":6379"
+	ip := fmt.Sprintf("%s:6379", t.Ip)
 	client := redis.NewClient(&redis.Options{
 		Addr: ip,
 	})

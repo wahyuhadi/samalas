@@ -17,6 +17,7 @@ type Target struct {
 	// - timeout
 	Timeout time.Duration
 	// - Is Http scan -> true
+	// - will perform scanning in http service like minidirbuster
 	Http bool
 	// - Is Elastic scan ->
 	Elastic bool
@@ -34,21 +35,24 @@ func Init(ip string) {
 	}
 
 	// - spesific scan for products
-	// - scan for elastic
+	// - scan for elastic -p elastic
 	if *product == "elastic" {
 		t.Elastic = true
 	}
-	// - scan for http services
+
+	// - scan for http services -p http
 	if *product == "http" {
 		t.Http = true
 	}
 
-	// - scan for redis services
+	// - scan for redis services -p redis
 	if *product == "redis" {
 		t.Redis = true
 	}
 
 	t.Ip = ip
+
+	// - handling for timeout 5s
 	t.Timeout = 500 * time.Millisecond
 
 	// - for go rutine
