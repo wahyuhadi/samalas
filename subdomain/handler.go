@@ -1,21 +1,14 @@
 package subdomain
 
-// - return value
-type SubDomain struct {
-	Subdomain string
-	IP        string
-}
-
 // - handler subdomain
 func HandlerSubdomain(domain string) []SubDomain {
-	SubDomainList := []SubDomain{}
+	subDomainList := []SubDomain{}
 
 	hackerTarget := parseHackerTarget(domain)
+	subDomainList = append(subDomainList, SubDomain{Domains: hackerTarget, Source: "HackerTarget"})
 
-	// - Add subdomain to array object fot hacker target
-	for _, htarget := range hackerTarget {
-		SubDomainList = append(SubDomainList, SubDomain{htarget.DomainName, htarget.IpAddr})
-	}
+	securitytrails := ParseSecuritytrails(domain)
+	subDomainList = append(subDomainList, SubDomain{Domains: securitytrails, Source: "Securitytrails"})
 
-	return SubDomainList // - return is array
+	return subDomainList
 }

@@ -32,10 +32,12 @@ func main() {
 
 	// -- scan for subdomain
 	if *domain != "" {
-		sDomain := subdomain.HandlerSubdomain(*domain)
-		for _, subd := range sDomain {
-			services.Init(subd.Subdomain)
-			services.Init(subd.IP)
+		subDomainList := subdomain.HandlerSubdomain(*domain)
+		for _, subDomain := range subDomainList {
+			for _, domain := subDomain.GetAll() {
+				services.Init(domain.DomainName)
+				services.Init(domain.IpAddr)
+			}
 		}
 	}
 
