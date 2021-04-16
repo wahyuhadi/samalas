@@ -10,6 +10,13 @@ type Domain struct {
 	DomainName string
 }
 
+// -- handling validate if source need API - KEY
+type ControllerScapper struct {
+	// -- security trails need api key
+	// - SECURITYTRAILS_API_KEY
+	Securitytrails bool
+}
+
 func (subDomain SubDomain) GetAll() []Domain {
 	domains := []Domain{}
 

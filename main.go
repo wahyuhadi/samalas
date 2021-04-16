@@ -34,7 +34,7 @@ func main() {
 	if *domain != "" {
 		subDomainList := subdomain.HandlerSubdomain(*domain)
 		for _, subDomain := range subDomainList {
-			for _, domain := subDomain.GetAll() {
+			for _, domain := range subDomain.GetAll() {
 				services.Init(domain.DomainName)
 				services.Init(domain.IpAddr)
 			}
