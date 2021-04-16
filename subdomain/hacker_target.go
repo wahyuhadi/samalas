@@ -17,11 +17,6 @@ const (
 	HACKER_TARGET string = "https://hackertarget.com/find-dns-host-records/"
 )
 
-type Domain struct {
-	IpAddr     string
-	DomainName string
-}
-
 // - parsing data  from hacker target
 func parseHackerTarget(domainName string) []Domain {
 	domains := []Domain{}
