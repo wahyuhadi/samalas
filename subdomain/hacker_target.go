@@ -18,7 +18,7 @@ const (
 )
 
 // - parsing data  from hacker target
-func parseHackerTarget(domainName string) []Domain {
+func ParseHackerTarget(domainName string) []Domain {
 	domains := []Domain{}
 
 	resp, err := http.PostForm(HACKER_TARGET,
