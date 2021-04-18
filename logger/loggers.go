@@ -16,6 +16,7 @@ func SetLogger(mode, message string) {
 	flag.Parse()
 	log := logrus.New()
 	if !*logger {
+		// -- disable logger where logger is false
 		log.Out = ioutil.Discard
 	}
 	switch mode {

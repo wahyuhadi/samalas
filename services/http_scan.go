@@ -11,9 +11,11 @@ import (
 func (t *Target) simple_brute_dir() error {
 	list := []string{
 		".env",
+		".env.example",
+		".env.sample",
+		".env.production",
 		".git/config",
-		"actuator/env",
-		"actuator/logfile",
+		"docker-compose.yml",
 	}
 
 	for _, items := range list {

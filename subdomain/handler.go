@@ -19,14 +19,17 @@ func HandlerSubdomain(domain string) []SubDomain {
 
 	subDomainList := []SubDomain{}
 
+	// - get data from hackertarget
 	loggers.SetLogger("info", "Get data from hackertarget.")
 	hackerTarget := ParseHackerTarget(domain)
 	subDomainList = append(subDomainList, SubDomain{Domains: hackerTarget, Source: "HackerTarget"})
 
+	// - get data from crtsh
 	loggers.SetLogger("info", "Get data from crtsh.")
 	crtsh := ParseCRTSH(domain)
 	subDomainList = append(subDomainList, SubDomain{Domains: crtsh, Source: "crt.sh"})
 
+	// - get data from netcraft
 	loggers.SetLogger("info", "Get data from netcraft.")
 	netcraft := ParseNetcraft(domain)
 	subDomainList = append(subDomainList, SubDomain{Domains: netcraft, Source: "Netcraft"})
