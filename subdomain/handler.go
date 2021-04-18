@@ -17,8 +17,11 @@ func HandlerSubdomain(domain string) []SubDomain {
 
 	subDomainList := []SubDomain{}
 
-	hackerTarget := parseHackerTarget(domain)
+	hackerTarget := ParseHackerTarget(domain)
 	subDomainList = append(subDomainList, SubDomain{Domains: hackerTarget, Source: "HackerTarget"})
+
+	crtsh := ParseCRTSH(domain)
+	subDomainList = append(subDomainList, SubDomain{Domains: crtsh, Source: "crt.sh"})
 
 	// -- if is api key true for Securitytrails
 	if controller.Securitytrails {
