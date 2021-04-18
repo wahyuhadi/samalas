@@ -1,10 +1,12 @@
 package subdomain
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
+	loggers "samalas/logger"
 )
 
 const (
@@ -27,9 +29,10 @@ func ParseNetcraft(domainName string) []Domain {
 	}
 
 	r := regexp.MustCompile(`\w+.[.]` + domainName)
-	rawSubDoamin := r.FindAllString(string(body), -1)
-
-	for _, subdomain := range removeDuplicateValues(rawSubDoamin) {
+	rawSubDomain := r.FindAllString(string(body), -1)
+	msg := fmt.Sprintf("Found %d subdomain in Netcraft", len(rawSubDomain))
+	loggers.SetLogger("info", msg)
+	for _, subdomain := range removeDuplicateValues(rawSubDomain) {
 		domains = append(domains, Domain{DomainName: subdomain, IpAddr: ""})
 	}
 

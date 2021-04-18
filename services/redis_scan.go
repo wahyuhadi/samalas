@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	loggers "samalas/logger"
 	"sync"
 
 	"github.com/go-redis/redis"
@@ -12,7 +13,8 @@ func (t *Target) isRedis(wg *sync.WaitGroup) {
 	if t.Redis {
 		// - check redis port is open or not
 		is_redis := t.ScanPort(6379, t.Timeout)
-
+		msg := fmt.Sprintf("Scan redis port on IP : %s", t.Ip)
+		loggers.SetLogger("info", msg)
 		// - if redis is open
 		if is_redis {
 			client := t.is_redis_check()
@@ -29,6 +31,7 @@ func (t *Target) isRedis(wg *sync.WaitGroup) {
 
 func (t *Target) is_redis_check() *redis.Client {
 	ip := fmt.Sprintf("%s:6379", t.Ip)
+
 	client := redis.NewClient(&redis.Options{
 		Addr: ip,
 	})

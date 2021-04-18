@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"os"
+	loggers "samalas/logger"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -37,14 +37,18 @@ func ParseHackerTarget(domainName string) []Domain {
 
 	rawSubdomains := strings.Split(doc.Find("#formResponse").First().Text(), "\n")
 	if rawSubdomains[0] == "API count exceeded - Increase Quota with Membership" {
-		fmt.Println("[!]", rawSubdomains[0])
-		fmt.Println("[!] Please check the web")
-		os.Exit(1)
+		loggers.SetLogger("warning", "hacker target reach limit.")
+		// -- add "" value to array
+		domains = append(domains, Domain{"", ""})
+		// -- and return value
+		return domains
+
 	}
 
+	msg := fmt.Sprintf("Found %d subdomain in HackerTarget", len(rawSubdomains))
+	loggers.SetLogger("info", msg)
 	for _, subDomain := range rawSubdomains {
 		rawDomain := strings.Split(subDomain, ",")
-
 		domains = append(domains, Domain{rawDomain[1], rawDomain[0]})
 	}
 
