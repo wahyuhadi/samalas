@@ -23,6 +23,9 @@ func HandlerSubdomain(domain string) []SubDomain {
 	crtsh := ParseCRTSH(domain)
 	subDomainList = append(subDomainList, SubDomain{Domains: crtsh, Source: "crt.sh"})
 
+	netcraft := ParseNetcraft(domain)
+	subDomainList = append(subDomainList, SubDomain{Domains: netcraft, Source: "Netcraft"})
+
 	// -- if is api key true for Securitytrails
 	if controller.Securitytrails {
 		securitytrails := ParseSecuritytrails(domain)
