@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	loggers "samalas/logger"
 	"sync"
 	"time"
 
@@ -13,6 +14,8 @@ func (t *Target) isElastic(wg *sync.WaitGroup) {
 	if t.Elastic {
 
 		is_elasic := t.ScanPort(9200, t.Timeout)
+		msg := fmt.Sprintf("Scanning IP :%s for elastic services.", t.Ip)
+		loggers.SetLogger("info", msg)
 		// - if elastic open
 		if is_elasic {
 			ip := fmt.Sprintf("http://%s:9200", t.Ip) // - elastic link
@@ -25,7 +28,8 @@ func (t *Target) isElastic(wg *sync.WaitGroup) {
 
 func check_elastic(setURL string) bool {
 	var sec time.Duration = 5
-
+	msg := fmt.Sprintf("Validate IP :%s for elastic services.", setURL)
+	loggers.SetLogger("info", msg)
 	// Convert port integer to a string
 	timeOut := sec * time.Second
 
@@ -37,8 +41,11 @@ func check_elastic(setURL string) bool {
 	)
 
 	if err != nil {
+		msg = fmt.Sprintf("Disable elastic in IP :%s , with error %s", setURL, err)
+		loggers.SetLogger("info", msg)
 		return false // - if not found return false
 	}
-
+	msg = fmt.Sprintf("Yeaaayy, Found elastic services in IP :%s", setURL)
+	loggers.SetLogger("info", msg)
 	return true
 }

@@ -1,10 +1,12 @@
 package subdomain
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
+	loggers "samalas/logger"
 	"strings"
 )
 
@@ -29,7 +31,8 @@ func ParseCRTSH(domainName string) []Domain {
 
 	r := regexp.MustCompile(`>\w+.` + domainName)
 	rawSubDoamin := r.FindAllString(string(body), -1)
-
+	msg := fmt.Sprintf("Found %d subdomain in CRTSh", len(rawSubDoamin))
+	loggers.SetLogger("info", msg)
 	for _, subdomain := range removeDuplicateValues(rawSubDoamin) {
 		domains = append(domains, Domain{DomainName: strings.ReplaceAll(subdomain, ">", ""), IpAddr: ""})
 	}

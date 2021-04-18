@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	loggers "samalas/logger"
 	"sync"
 )
 
@@ -43,7 +44,11 @@ func (t *Target) isHttp(wg *sync.WaitGroup) {
 	defer wg.Done()
 	if t.Http {
 		is_http := t.ScanPort(80, t.Timeout)
+		msg := fmt.Sprintf("Scan http port on IP : %s", t.Ip)
+		loggers.SetLogger("info", msg)
 		if is_http {
+			msg = fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
+			loggers.SetLogger("info", msg)
 			t.simple_brute_dir()
 		}
 	}
