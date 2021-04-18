@@ -16,6 +16,7 @@ func (t *Target) simple_brute_dir() error {
 		".env.production",
 		".git/config",
 		"docker-compose.yml",
+		"actuator/env",
 	}
 
 	for _, items := range list {
@@ -33,8 +34,9 @@ func (t *Target) simple_brute_dir() error {
 		resp, err := client.Do(req)
 
 		if err == nil {
+
 			if resp.StatusCode == http.StatusOK {
-				fmt.Println("[+] Posible Found : ", target)
+				fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
 			}
 		}
 	}

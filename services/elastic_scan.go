@@ -20,7 +20,7 @@ func (t *Target) isElastic(wg *sync.WaitGroup) {
 		if is_elasic {
 			ip := fmt.Sprintf("http://%s:9200", t.Ip) // - elastic link
 			if check_elastic(ip) {
-				fmt.Println("[+] port 9200 found : ", t.Ip)
+				fmt.Println(GREEN, "+ [ELASTIC] Port 9200 found : ", t.Ip, RESET)
 			}
 		}
 	}

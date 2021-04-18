@@ -21,7 +21,7 @@ func (t *Target) isRedis(wg *sync.WaitGroup) {
 			pong, err := client.Ping().Result()
 			if err == nil {
 				if pong == "PONG" {
-					fmt.Println("[+] redis open", t.Ip, pong, "message", err)
+					fmt.Println(GREEN, "+ [REDIS] redis open", t.Ip, pong, "message", err, RESET)
 				}
 				// Output: PONG <nil>
 			}
