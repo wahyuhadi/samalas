@@ -5,14 +5,13 @@ import (
 	"log"
 	"net/http"
 	"regexp"
-	"strings"
 )
 
 const (
-	CRTSH_BASE_URL string = "https://crt.sh/?q="
+	NETCRAFT_BASE_URL string = "https://searchdns.netcraft.com/?restriction=site+contains&host="
 )
 
-func ParseCRTSH(domainName string) []Domain {
+func ParseNetcraft(domainName string) []Domain {
 	domains := []Domain{}
 
 	resp, err := http.Get(CRTSH_BASE_URL + domainName)
@@ -27,11 +26,11 @@ func ParseCRTSH(domainName string) []Domain {
 		log.Fatal(err)
 	}
 
-	r := regexp.MustCompile(`>\w+.` + domainName)
+	r := regexp.MustCompile(`\w+.[.]` + domainName)
 	rawSubDoamin := r.FindAllString(string(body), -1)
 
 	for _, subdomain := range removeDuplicateValues(rawSubDoamin) {
-		domains = append(domains, Domain{DomainName: strings.ReplaceAll(subdomain, ">", ""), IpAddr: ""})
+		domains = append(domains, Domain{DomainName: subdomain, IpAddr: ""})
 	}
 
 	return domains
