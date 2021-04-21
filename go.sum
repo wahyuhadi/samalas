@@ -54,6 +54,8 @@ github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.5.1 h1:nOGnQDM7FYENwehXlg/kFVnos3rEvtKTjRvOWSzb6H4=
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
+github.com/tomnomnom/assetfinder v0.1.1 h1:zIs3KUNZklcI9RhLsGiChy+X8keo5mhvsIDCiqkJjq8=
+github.com/tomnomnom/assetfinder v0.1.1/go.mod h1:/q0abh5EqxoFRfxfDqCjTpi+vM0iSvugs1mBgxBoul4=
 github.com/wahyuhadi/go-ipgen v0.0.0-20191106165938-41f5a16e668a h1:kTPbRihrla8gubJfH4Mv60Sy8ip7mzJ9SEmos69GNSI=
 github.com/wahyuhadi/go-ipgen v0.0.0-20191106165938-41f5a16e668a/go.mod h1:JZZK2vkMvYVVQFit4ZfY0ii58Fb1XFXME78mRljRrUA=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
