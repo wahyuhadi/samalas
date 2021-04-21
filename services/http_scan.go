@@ -11,11 +11,13 @@ import (
 var (
 	list = []string{
 		".env",
+		".env.save",
 		".env.example",
 		".env.sample",
 		".env.production",
 		".git/config",
 		"docker-compose.yml",
+		"storage/logs/laravel.log",
 	}
 )
 
@@ -73,21 +75,24 @@ func (t *Target) simple_brute_dir_schema() error {
 }
 func (t *Target) isHttp(wg *sync.WaitGroup, withSchema bool) {
 	defer wg.Done()
-	if withSchema {
-		// -- make http scheme false
-		t.Http = false
-		msg := fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
-		loggers.SetLogger("info", msg)
-		t.simple_brute_dir_schema()
-	}
+
 	if t.Http {
-		is_http := t.ScanPort(80, t.Timeout)
-		msg := fmt.Sprintf("Scan http port on IP : %s", t.Ip)
-		loggers.SetLogger("info", msg)
-		if is_http {
-			msg = fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
+		if withSchema {
+			// -- make http scheme false
+
+			msg := fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
 			loggers.SetLogger("info", msg)
-			t.simple_brute_dir()
+			t.simple_brute_dir_schema()
+		} else {
+			is_http := t.ScanPort(80, t.Timeout)
+			msg := fmt.Sprintf("Scan http port on IP : %s", t.Ip)
+			loggers.SetLogger("info", msg)
+			if is_http {
+				msg = fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
+				loggers.SetLogger("info", msg)
+				t.simple_brute_dir()
+			}
 		}
 	}
+
 }

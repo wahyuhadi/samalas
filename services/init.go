@@ -2,9 +2,12 @@ package services
 
 import (
 	"flag"
+	"os"
 	"runtime"
 	"sync"
 	"time"
+
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -30,15 +33,29 @@ func Init(ip string, withSchema bool) {
 		var t Target
 		// - default scan will scan all product
 		if *product == "all" {
-			t.Http = true
-			t.Elastic = true
-			t.Redis = true
+			// -- only scann  http dir  for this services
+
+			if withSchema {
+				t.Http = true
+			} else {
+				t.Http = true
+				t.Elastic = true
+				t.Redis = true
+			}
 		}
 
 		// - spesific scan for products
 		// - scan for elastic -p elastic
 		if *product == "elastic" {
-			t.Elastic = true
+			// -- cannot scann url for this services
+			if withSchema {
+				t.Elastic = false
+				logrus.Error("[+] Cannot scann with mode list in elastic")
+				os.Exit(1)
+			} else {
+				t.Elastic = true
+			}
+
 		}
 
 		// - scan for http services -p http
@@ -48,7 +65,14 @@ func Init(ip string, withSchema bool) {
 
 		// - scan for redis services -p redis
 		if *product == "redis" {
-			t.Redis = true
+			// -- cannot scann url for this services
+			if withSchema {
+				t.Redis = false
+				logrus.Error("[+] Cannot scann with mode list in redis")
+				os.Exit(1)
+			} else {
+				t.Redis = true
+			}
 		}
 
 		t.Ip = ip
