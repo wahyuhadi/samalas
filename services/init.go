@@ -25,7 +25,7 @@ type Target struct {
 	Redis bool
 }
 
-func Init(ip string) {
+func Init(ip string, withSchema bool) {
 	if ip != "" {
 		var t Target
 		// - default scan will scan all product
@@ -62,7 +62,7 @@ func Init(ip string) {
 
 		var wg sync.WaitGroup
 		wg.Add(3)
-		t.isHttp(&wg)
+		t.isHttp(&wg, withSchema)
 		t.isElastic(&wg)
 		t.isRedis(&wg)
 		wg.Wait()
