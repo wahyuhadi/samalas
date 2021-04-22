@@ -37,12 +37,17 @@ func (t *Target) simple_brute_dir() error {
 		req, _ := http.NewRequest("GET", target, nil)
 		resp, err := client.Do(req)
 
-		if err == nil {
-
-			if resp.StatusCode == http.StatusOK {
-				fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
-			}
+		if err != nil {
+			msg := fmt.Sprintf("error when get the data %s  | %s", target, err.Error())
+			loggers.SetLogger("warning", msg)
+			return nil
 		}
+		// -- only show the 200 OK
+		if resp.StatusCode == http.StatusOK {
+			fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+		}
+
+		defer resp.Body.Close()
 	}
 
 	return nil
@@ -62,13 +67,18 @@ func (t *Target) simple_brute_dir_schema() error {
 		target := fmt.Sprintf("%s/%s", t.Ip, items)
 		req, _ := http.NewRequest("GET", target, nil)
 		resp, err := client.Do(req)
-
-		if err == nil {
-
-			if resp.StatusCode == http.StatusOK {
-				fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
-			}
+		if err != nil {
+			msg := fmt.Sprintf("error when get the data %s  | %s", target, err.Error())
+			loggers.SetLogger("warning", msg)
+			return nil
 		}
+		// -- only show the 200 OK
+		if resp.StatusCode == http.StatusOK {
+			fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+		}
+
+		defer resp.Body.Close()
+
 	}
 
 	return nil
