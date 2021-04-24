@@ -6,6 +6,8 @@ import (
 	"net/http"
 	loggers "samalas/logger"
 	"sync"
+
+	"samalas/helpers"
 )
 
 var (
@@ -92,6 +94,7 @@ func (t *Target) isHttp(wg *sync.WaitGroup, withSchema bool) {
 
 			msg := fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
 			loggers.SetLogger("info", msg)
+			t.getIcon()
 			t.simple_brute_dir_schema()
 		} else {
 			is_http := t.ScanPort(80, t.Timeout)
@@ -104,5 +107,18 @@ func (t *Target) isHttp(wg *sync.WaitGroup, withSchema bool) {
 			}
 		}
 	}
+}
 
+func (t *Target) getIcon() {
+	s := helpers.NewScraper(t.Ip)
+
+	ux, err := s.Favicon()
+	if err != nil {
+		msg := fmt.Sprintf("s.Favicon returned an error, %s", err)
+		loggers.SetLogger("error", msg)
+	} else {
+
+		msg := fmt.Sprintf("Found Favicon ico in %s", ux.String())
+		loggers.SetLogger("info", msg)
+	}
 }

@@ -13,6 +13,6 @@ require (
 	github.com/onsi/gomega v1.11.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/tomnomnom/assetfinder v0.1.1 // indirect
 	github.com/wahyuhadi/go-ipgen v0.0.0-20191106165938-41f5a16e668a
+	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb
 )
