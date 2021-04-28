@@ -78,7 +78,7 @@ func Init(ip string, withSchema bool) {
 		t.Ip = ip
 
 		// - handling for timeout 5s
-		t.Timeout = 500 * time.Millisecond
+		t.Timeout = 2000 * time.Millisecond
 
 		// - for go rutine
 

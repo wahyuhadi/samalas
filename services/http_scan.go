@@ -12,7 +12,17 @@ import (
 )
 
 var (
+	// -- this is only the common think
 	list = []string{
+		"api/.env",
+		"api/.git/config",
+		"api/.env.save",
+		"api/.env.example",
+		"api/.env.sample",
+		"api/.env.production",
+		"api/.git/config",
+		"api/docker-compose.yml",
+		"api/storage/logs/laravel.log",
 		".env",
 		".env.save",
 		".env.example",
@@ -92,7 +102,7 @@ func (t *Target) isHttp(wg *sync.WaitGroup, withSchema bool) {
 	if t.Http {
 		if withSchema {
 			// -- make http scheme false
-
+			// -- schema is http or https
 			msg := fmt.Sprintf("Do brute directory force   on IP : %s", t.Ip)
 			loggers.SetLogger("info", msg)
 			t.getIcon()
