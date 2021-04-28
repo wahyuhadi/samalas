@@ -57,7 +57,14 @@ func (t *Target) simple_brute_dir() error {
 		}
 		// -- only show the 200 OK
 		if resp.StatusCode == http.StatusOK {
-			fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+			// -- validate if response contain html
+			contype := resp.Header.Get("Content-Type")
+			contype1 := resp.Header.Get("content-type")
+			if contype == "text/html" || contype == "text/html; charset=iso-8859-1" || contype == "text/html; charset=utf-8" || contype1 == "text/html" || contype1 == "text/html; charset=iso-8859-1" || contype1 == "text/html; charset=UTF-8" {
+				fmt.Println(Uyellow, "+ [HTTP DIR] Posible Found : ", target, RESET, "-- Please Check --", resp.Header.Get("Content-Type"))
+			} else {
+				fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+			}
 		}
 
 		defer resp.Body.Close()
@@ -80,6 +87,7 @@ func (t *Target) simple_brute_dir_schema() error {
 		target := fmt.Sprintf("%s/%s", t.Ip, items)
 		req, _ := http.NewRequest("GET", target, nil)
 		resp, err := client.Do(req)
+
 		if err != nil {
 			msg := fmt.Sprintf("error when get the data %s  | %s", target, err.Error())
 			loggers.SetLogger("warning", msg)
@@ -87,7 +95,14 @@ func (t *Target) simple_brute_dir_schema() error {
 		}
 		// -- only show the 200 OK
 		if resp.StatusCode == http.StatusOK {
-			fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+			// -- validate if response contain html
+			contype := resp.Header.Get("Content-Type")
+			contype1 := resp.Header.Get("content-type")
+			if contype == "text/html" || contype == "text/html; charset=iso-8859-1" || contype == "text/html; charset=utf-8" || contype1 == "text/html" || contype1 == "text/html; charset=iso-8859-1" || contype1 == "text/html; charset=UTF-8" {
+				fmt.Println(Uyellow, "+ [HTTP DIR] Posible Found : ", target, RESET, "-- Please Check --", resp.Header.Get("Content-Type"))
+			} else {
+				fmt.Println(GREEN, "+ [HTTP DIR] Posible Found : ", target, RESET)
+			}
 		}
 
 		defer resp.Body.Close()
