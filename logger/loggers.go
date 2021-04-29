@@ -9,7 +9,7 @@ import (
 
 var (
 	// -- validate logger , with default value is true
-	logger = flag.Bool("logger", true, "Debug mode --logger=false or --logger=true ")
+	logger = flag.Bool("logger", false, "Debug mode --logger=false or --logger=true ")
 )
 
 func SetLogger(mode, message string) {
